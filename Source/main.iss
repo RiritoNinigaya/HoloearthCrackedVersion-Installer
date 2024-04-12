@@ -59,12 +59,19 @@ const
 var
   mp3Handle: HWND;
   mp3Name: string;
+  BackgroundImage: TBitmapImage;
 begin
   ExtractTemporaryFile('SixFeetUnderground.mp3');
+  ExtractTemporaryFile('back.bmp');
   mp3Name := ExpandConstant('{tmp}\SixFeetUnderground.mp3');
   BASS_Init(-1, 48000, 0, 0, 0);
   mp3Handle := BASS_StreamCreateFile(FALSE, PAnsiChar(mp3Name), 0, 0, 0, 0, BASS_SAMPLE_LOOP);
   BASS_Start();
+  BackgroundImage := TBitmapImage.Create(MainForm);
+  BackgroundImage.Parent := MainForm;
+  BackgroundImage.SetBounds(0, 0, MainForm.ClientWidth, MainForm.ClientHeight);
+  BackgroundImage.Stretch := True;
+  BackgroundImage.Bitmap.LoadFromFile(ExpandConstant('{tmp}\back.bmp'));
   BASS_ChannelPlay(mp3Handle, False);
 end;
 
@@ -73,6 +80,7 @@ Source: "E:\COVER corp\HoloearthApps\Holoearth\{#MyAppExeName}"; DestDir: "{app}
 Source: "E:\COVER corp\HoloearthApps\Holoearth\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Include_InnoSetup\bass.dll"; DestDir: "{tmp}"; Flags: ignoreversion dontcopy
 Source: "SixFeetUnderground.mp3"; DestDir: "{tmp}"; Flags: ignoreversion dontcopy
+Source: "back.bmp"; DestDir: "{tmp}"; Flags: ignoreversion dontcopy
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
