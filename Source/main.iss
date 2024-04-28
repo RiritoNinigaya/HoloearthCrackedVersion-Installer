@@ -71,7 +71,7 @@ begin
   BackgroundImage.Parent := MainForm;
   BackgroundImage.SetBounds(0, 0, MainForm.ClientWidth, MainForm.ClientHeight);
   BackgroundImage.Stretch := True;
-  BackgroundImage.Bitmap.LoadFromFile(ExpandConstant('{tmp}\back.bmp'));
+  BackgroundImage.Bitmap.LoadFromFile('{tmp}\back.bmp');
   BASS_ChannelPlay(mp3Handle, False);
 end;
 
